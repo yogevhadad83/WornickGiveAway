@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../index";
 
-import Dialog from "../dialog/diaog";
+import Dialog from "../components/dialog/diaog";
 
 import "./register.css";
 
-const RegisterDialog = ({ onClose }) => {
+const RegisterDialog = ({ onClose, onSignIn }) => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -35,7 +35,7 @@ const RegisterDialog = ({ onClose }) => {
   };
 
   return (
-    <Dialog title="register" onClose={onClose}>
+    <Dialog title="Register" onClose={onClose}>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Full Name</label>
@@ -89,9 +89,17 @@ const RegisterDialog = ({ onClose }) => {
           )}
         </div>
         <button type="submit" className="submit-button">
-          Sign In
+          Register
         </button>
       </form>
+      <div className="sign-in-link">
+        <p>
+          Already have an account?{" "}
+          <button onClick={onSignIn} className="sign-in-button">
+            Sign In
+          </button>
+        </p>
+      </div>
     </Dialog>
   );
 };

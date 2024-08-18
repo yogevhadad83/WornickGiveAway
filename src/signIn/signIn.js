@@ -6,7 +6,7 @@ import { auth } from "../index"; // Import auth from index.js
 
 import "./signIn.css";
 
-const SignInDialog = ({ onClose }) => {
+const SignInDialog = ({ onClose, onRegister }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -42,6 +42,12 @@ const SignInDialog = ({ onClose }) => {
           Sign In
         </button>
       </form>
+      <div className="register-link">
+        <p>Don't have an account? </p>
+        <span onClick={onRegister} className="register-button">
+          Register
+        </span>
+      </div>
     </Dialog>
   );
 };

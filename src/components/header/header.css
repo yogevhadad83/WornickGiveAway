@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background: #fff;
+  height: 72px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative; /* Ensure it spans the full width */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.header h1 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center; /* Optional, for better alignment */
+}
+
+.header-buttons-container {
+  display: flex;
+  gap: 10px; /* Adjust the gap between buttons as needed */
+  margin-left: auto; /* Add this to align buttons to the right */
+}

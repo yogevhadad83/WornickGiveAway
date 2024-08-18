@@ -1,0 +1,48 @@
+.item-preview {
+  position: relative;
+  padding: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  height: 80vh;
+  width: 60%;
+  border-radius: 5px;
+  margin: 0 auto; /* Center the preview horizontally */
+}
+
+.image-container {
+  width: 100%;
+  height: 15vw;
+  border: 1px dashed #000; /* Default border */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Ensures the image doesn't overflow the container */
+}
+
+.image-container.dragging {
+  background-color: #f0f0f0; /* Change the background color when dragging */
+}
+
+.image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover; /* Ensures the image covers the container without distortion */
+}
+
+.click-to-upload {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.image-without-border {
+  border: none; /* Remove the border */
+}
+
+.item-details {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  border-radius: 5px;
+}

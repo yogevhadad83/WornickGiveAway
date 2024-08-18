@@ -1,0 +1,45 @@
+.item-form {
+  display: flex;
+  flex-direction: column;
+  padding: 2px 16px;
+  height: 100vh; /* Set the height to 100% of the viewport height */
+  position: relative; /* Add a relative position */
+}
+
+.item-form::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 5px; /* Width of the fading effect */
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.1)
+  ); /* Add a fading effect */
+}
+
+.item-form label {
+  margin-bottom: 10px;
+}
+
+.item-form input,
+.item-form select,
+.item-form textarea {
+  margin: 12px 0 0 15px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.item-form input[type="submit"] {
+  background-color: #4caf50; /* Green */
+  color: white;
+  cursor: pointer;
+}
+
+.item-form input[type="submit"]:hover {
+  background-color: #45a049;
+}

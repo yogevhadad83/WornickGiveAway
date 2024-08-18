@@ -1,0 +1,10 @@
+.gallery {
+  position: absolute;
+  top: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; /* Align items to the left */
+  gap: 20px; /* Add a gap between the items */
+  padding: 20px;
+  overflow: scroll;
+}

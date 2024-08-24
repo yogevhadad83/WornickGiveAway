@@ -1,22 +1,16 @@
 import Button from "../button/button";
+import Avatar from "../avatar/avatar";
 import "./header.css";
+import { useUser } from "../../contexts/user";
+import { Children } from "react";
 
-function Header({ onSignIn, onListItem, user }) {
+function Header({ children }) {
+  const { user } = useUser();
+
   return (
     <div className="header">
       <h1>Wornick Giveaway</h1>
-      <div className="header-buttons-container">
-        <Button variant="primary" onClick={onListItem}>
-          List an Item
-        </Button>
-        {user ? (
-          user.email
-        ) : (
-          <Button variant="secondary" onClick={onSignIn}>
-            Sign In
-          </Button>
-        )}
-      </div>
+      <div className="header-buttons-container">{children}</div>
     </div>
   );
 }

@@ -3,8 +3,12 @@ import React, { useState } from "react";
 import ItemForm from "./itemForm/itemForm";
 import ItemPreview from "./itemPreview/itemPreview";
 import "./addItem.css";
+import Header from "../../components/header/header";
+import { useUser } from "../../contexts/user";
 
 const AddItem = () => {
+  const { user } = useUser();
+
   const [image, setImage] = useState(null);
   const [formInputs, setFormInputs] = useState({
     title: "",
@@ -43,20 +47,23 @@ const AddItem = () => {
   };
 
   return (
-    <div className="add-item-page">
-      <ItemForm
-        handleInputChange={handleInputChange}
-        handleImageChange={handleImageChange}
-      />
-      <ItemPreview
-        image={image}
-        formInputs={formInputs}
-        handleRemoveImage={handleRemoveImage}
-        handleImageChange={handleImageChange}
-        handleDragOver={handleDragOver}
-        handleDrop={handleDrop}
-      />
-    </div>
+    <>
+      <Header user={user} />
+      <div className="add-item-page">
+        <ItemForm
+          handleInputChange={handleInputChange}
+          handleImageChange={handleImageChange}
+        />
+        <ItemPreview
+          image={image}
+          formInputs={formInputs}
+          handleRemoveImage={handleRemoveImage}
+          handleImageChange={handleImageChange}
+          handleDragOver={handleDragOver}
+          handleDrop={handleDrop}
+        />
+      </div>
+    </>
   );
 };
 

@@ -4,6 +4,7 @@
   transition: 0.3s;
   width: 300px; /* width for desktop */
   border-radius: 5px;
+  background-color: rgb(255, 255, 255);
 }
 
 /* Change card width for mobile devices */

@@ -1,9 +1,9 @@
 import React from "react";
 import "./dialog.css";
 
-const Dialog = ({ title, children, onClose }) => {
+const Dialog = ({ title, children, onClose, className }) => {
   return (
-    <div className="dialog-overlay">
+    <div className={`dialog-overlay ${className}`}>
       <div className="dialog">
         <div className="dialog-header">
           <h2>{title}</h2>

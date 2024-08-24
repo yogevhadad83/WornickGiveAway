@@ -1,17 +1,15 @@
-/* signIn.css */
-
-.sign-in-form {
+.sign-in-dialog .sign-in-form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.form-group {
+.sign-in-dialog .form-group {
   display: flex;
   flex-direction: column;
 }
 
-.sign-in-button {
+.sign-in-dialog .sign-in-button {
   padding: 0.75rem;
   background-color: #007bff;
   color: white;
@@ -20,15 +18,26 @@
   cursor: pointer;
 }
 
-.sign-in-button:hover {
+.sign-in-dialog .sign-in-button:hover {
   background-color: #0056b3;
 }
 
-.register-link {
+.sign-in-dialog .register-link {
   margin-top: 1rem;
   text-align: center;
 }
 
-.register-link p {
+.sign-in-dialog .register-link p {
+  display: inline-flex;
   margin: 0;
+}
+
+.sign-in-dialog .register-button {
+  margin-left: 5px;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.sign-in-dialog .register-button:hover {
+  text-decoration: underline;
 }

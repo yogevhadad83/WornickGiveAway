@@ -1,0 +1,11 @@
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-body {
+  flex: 1;
+  padding: 20px;
+  background-color: #c82e2e;
+}

@@ -2,21 +2,22 @@ import React, { useState } from "react";
 import Dialog from "../components/dialog/diaog";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../index"; // Import auth from index.js
 
 import "./signIn.css";
+import { auth } from "../firebaseConfig";
+// import { useFirestore } from "../contexts/firestore";
 
-const SignInDialog = ({ onClose, onRegister }) => {
+const SignInDialog = ({ onClose, onOpenRegister }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    await signInWithEmailAndPassword(auth, email, password);
+    signInWithEmailAndPassword(auth, email, password);
   };
 
   return (
-    <Dialog title="Sign In" onClose={onClose}>
+    <Dialog title="Sign In" onClose={onClose} className="sign-in-dialog">
       <form className="sign-in-form" onSubmit={handleSignIn}>
         <div className="form-group">
           <label htmlFor="email">Email</label>
@@ -44,7 +45,12 @@ const SignInDialog = ({ onClose, onRegister }) => {
       </form>
       <div className="register-link">
         <p>Don't have an account? </p>
-        <span onClick={onRegister} className="register-button">
+        <span
+          onClick={onOpenRegister}
+          className="register-button"
+          role="button"
+          tabIndex="0"
+        >
           Register
         </span>
       </div>

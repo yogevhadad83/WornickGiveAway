@@ -6,6 +6,7 @@ import Home from "./pages/home/home";
 
 import "./App.css";
 import { FirestoreProvider } from "./contexts/firestore";
+import AccountPage from "./pages/account/account";
 
 function App() {
   return (
@@ -14,13 +15,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/add-item" element={<AddItem />} />
+          <Route path="/account" element={<AccountPage />} />
         </Routes>
       </Router>
     </div>
   );
 }
 
-function AppWrapper({ auth }) {
+function AppWrapper() {
   return (
     <FirestoreProvider>
       <UserProvider>

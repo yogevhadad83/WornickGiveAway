@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import Dialog from "../components/dialog/diaog";
 
+import UserDetailsForm, {
+  validate,
+} from "../../components/userDetailsForm/userDetailsForm";
 import "./register.css";
-import { useFirestore } from "../contexts/firestore";
-import { auth } from "../firebaseConfig";
+import { useFirestore } from "../../contexts/firestore";
+import { auth } from "../../firebaseConfig";
+import Dialog from "../../components/dialog/diaog";
 
 const RegisterDialog = ({ onClose, onOpenSignIn }) => {
   const [fullName, setFullName] = useState("");
@@ -14,25 +17,14 @@ const RegisterDialog = ({ onClose, onOpenSignIn }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [registerError, setRegisterError] = useState("");
 
   const { setDocument } = useFirestore();
 
-  const validate = () => {
-    const newErrors = {};
-    if (!fullName) newErrors.fullName = "Full name is required";
-    if (!location) newErrors.location = "Location name is required";
-    if (!email) newErrors.email = "Email is required";
-    if (!phoneNumber) newErrors.phoneNumber = "Phone number is required";
-    if (!password) newErrors.password = "Password is required";
-    if (password !== confirmPassword)
-      newErrors.confirmPassword = "Passwords do not match";
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
+    const isValid = validate(fullName, location, email, phoneNumber, setErrors);
+    if (isValid) {
       try {
         const fbUser = await createUserWithEmailAndPassword(
           auth,
@@ -49,6 +41,7 @@ const RegisterDialog = ({ onClose, onOpenSignIn }) => {
         onClose();
       } catch (error) {
         console.error("Error creating user: ", error);
+        setRegisterError("Failed to register. Please try again.");
       }
     }
   };
@@ -56,46 +49,18 @@ const RegisterDialog = ({ onClose, onOpenSignIn }) => {
   return (
     <Dialog title="Register" onClose={onClose} className="register-dialog">
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Full Name</label>
-          <input
-            type="text"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-          />
-          {errors.fullName && <span className="error">{errors.fullName}</span>}
-        </div>
-        <div className="form-group">
-          <label>Location</label>
-          <input
-            type="text"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          />
-          {errors.location && <span className="error">{errors.location}</span>}
-        </div>
-        <div className="form-group">
-          <label>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          {errors.phoneNumber && (
-            <span className="error">{errors.phoneNumber}</span>
-          )}
-        </div>
-        <div className="form-group">
-          <label>Phone Number</label>
-          <input
-            type="text"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />
-          {errors.phoneNumber && (
-            <span className="error">{errors.phoneNumber}</span>
-          )}
-        </div>
+        <UserDetailsForm
+          fullName={fullName}
+          setFullName={setFullName}
+          email={email}
+          setEmail={setEmail}
+          phoneNumber={phoneNumber}
+          setPhoneNumber={setPhoneNumber}
+          location={location}
+          setLocation={setLocation}
+          errors={errors}
+          setErrors={setErrors}
+        />
         <div className="form-group">
           <label>Password</label>
           <input
@@ -116,6 +81,7 @@ const RegisterDialog = ({ onClose, onOpenSignIn }) => {
             <span className="error">{errors.confirmPassword}</span>
           )}
         </div>
+        {registerError && <span className="error">{registerError}</span>}
         <button type="submit" className="submit-button">
           Register
         </button>

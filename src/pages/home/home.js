@@ -1,15 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Gallery from "../../components/gallery/gallery";
-import Header from "../../components/header/header";
-import SignInDialog from "../../signIn/signIn";
-import RegisterDialog from "../../register/register"; // Corrected import
+import SignInDialog from "../../dialogs/signIn/signIn";
+import RegisterDialog from "../../dialogs/register/register"; // Corrected import
 
 import "./home.css";
 import { useUser } from "../../contexts/user";
 import Page from "../../components/page/page";
 import Button from "../../components/button/button";
-import Avatar from "../../components/avatar/avatar";
 
 function Home() {
   const [isSignInDialogOpen, setIsSignInDialogOpen] = useState(false); // Corrected state name
@@ -52,10 +50,8 @@ function Home() {
           <Button variant="primary" onClick={gotoListItem}>
             List an Item
           </Button>
-          {user ? (
-            <Avatar user={user} />
-          ) : (
-            <Button variant="secondary" onClick={openRegisterDialog}>
+          {!user && (
+            <Button variant="secondary" onClick={openSignInDialog}>
               Sign In
             </Button>
           )}

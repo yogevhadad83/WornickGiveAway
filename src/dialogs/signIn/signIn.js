@@ -1,19 +1,25 @@
 import React, { useState } from "react";
-import Dialog from "../components/dialog/diaog";
-
+import Dialog from "../../components/dialog/diaog";
 import { signInWithEmailAndPassword } from "firebase/auth";
-
 import "./signIn.css";
-import { auth } from "../firebaseConfig";
-// import { useFirestore } from "../contexts/firestore";
+import { auth } from "../../firebaseConfig";
 
 const SignInDialog = ({ onClose, onOpenRegister }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      onClose();
+    } catch (error) {
+      console.error("Error signing in:", error);
+      setError(
+        "Failed to sign in. Please check your email and password and try again."
+      );
+    }
   };
 
   return (
@@ -39,6 +45,7 @@ const SignInDialog = ({ onClose, onOpenRegister }) => {
             required
           />
         </div>
+        {error && <div className="error-message">{error}</div>}
         <button type="submit" className="sign-in-button">
           Sign In
         </button>

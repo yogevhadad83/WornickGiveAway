@@ -41,3 +41,8 @@
 .sign-in-dialog .register-button:hover {
   text-decoration: underline;
 }
+
+.sign-in-dialog .error-message {
+  color: red;
+  margin-bottom: 1rem;
+}

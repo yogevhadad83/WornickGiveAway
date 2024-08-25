@@ -22,7 +22,7 @@ export const UserProvider = ({ children }) => {
     async (uid) => {
       try {
         const user = await getDocument("users", uid);
-        setUser(user);
+        setUser({ uid, ...user });
       } catch (e) {
         console.error("user", e);
         setUser(null);
@@ -33,7 +33,6 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (fbUser) => {
-      console.log("onAuthStateChanged", fbUser);
       if (fbUser) {
         setUserWithFbId(fbUser.uid);
       }

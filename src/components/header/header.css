@@ -6,9 +6,10 @@
   background: #fff;
   height: 72px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: relative; /* Ensure it spans the full width */
+  position: fixed;
   width: 100%;
   box-sizing: border-box;
+  z-index: 1;
 }
 
 .header h1 {

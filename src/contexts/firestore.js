@@ -15,7 +15,6 @@ const FirestoreProvider = ({ children }) => {
 
   const getDocument = async (collection, id) => {
     try {
-      console.log("bd > ", db);
       const docRef = doc(db, collection, id);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {

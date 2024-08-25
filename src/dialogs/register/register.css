@@ -1,0 +1,57 @@
+/* UserDetailsForm styles */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+}
+
+.form-group input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.register-dialog .submit-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.register-dialog .submit-button:hover {
+  background-color: #0056b3;
+}
+
+/* RegisterDialog specific styles */
+.register-dialog .sign-in-link {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.register-dialog .sign-in-link p {
+  display: inline-flex;
+  margin: 0;
+}
+
+.register-dialog .sign-in-button {
+  margin-left: 5px;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.register-dialog .sign-in-button:hover {
+  text-decoration: underline;
+}
+
+/* Error message styles */
+.error {
+  color: red;
+  margin-top: 0.5rem;
+}

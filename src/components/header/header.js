@@ -1,8 +1,6 @@
-import Button from "../button/button";
-import Avatar from "../avatar/avatar";
-import "./header.css";
 import { useUser } from "../../contexts/user";
-import { Children } from "react";
+import "./header.css";
+import ProfileMenu from "./profileMenu/profileMenu";
 
 function Header({ children }) {
   const { user } = useUser();
@@ -11,6 +9,7 @@ function Header({ children }) {
     <div className="header">
       <h1>Wornick Giveaway</h1>
       <div className="header-buttons-container">{children}</div>
+      {user ? <ProfileMenu /> : ""}
     </div>
   );
 }

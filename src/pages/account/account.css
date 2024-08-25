@@ -1,0 +1,39 @@
+/* PersonalDetails specific styles */
+.account-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px); /* Adjust height based on header height */
+  padding: 20px;
+}
+
+.account-page form {
+  max-width: 600px;
+  width: 100%;
+}
+
+/* Reuse the common styles from UserDetailsForm.css */
+.account-page .submit-button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.account-page .submit-button:hover {
+  background-color: #0056b3;
+}
+
+.account-page .submit-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Error message styles */
+.account-page .error {
+  color: red;
+  margin-top: 0.5rem;
+}

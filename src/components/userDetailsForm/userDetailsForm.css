@@ -27,23 +27,3 @@
 .submit-button:hover {
   background-color: #0056b3;
 }
-
-.register-dialog .sign-in-link {
-  margin-top: 1rem;
-  text-align: center;
-}
-
-.register-dialog .sign-in-link p {
-  display: inline-flex;
-  margin: 0;
-}
-
-.register-dialog .sign-in-button {
-  margin-left: 5px;
-  color: #007bff;
-  cursor: pointer;
-}
-
-.register-dialog .sign-in-button:hover {
-  text-decoration: underline;
-}

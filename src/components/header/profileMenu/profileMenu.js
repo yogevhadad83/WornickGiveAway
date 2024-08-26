@@ -17,7 +17,7 @@ const ProfileMenu = () => {
 
   const navigateToPersonalDetails = () => {
     setIsOpen(false);
-    navigate("/personal-details");
+    navigate("/account");
   };
 
   const handleSignOut = async (e) => {
@@ -42,7 +42,7 @@ const ProfileMenu = () => {
           </div>
           <ul>
             <li>
-              <span onClick={navigateToPersonalDetails}>Personal Details</span>
+              <span onClick={navigateToPersonalDetails}>Account</span>
             </li>
             <li>
               <span onClick={handleSignOut}>Sign Out</span>

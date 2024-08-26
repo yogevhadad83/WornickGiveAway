@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UserDetailsForm, {
   validate,
 } from "../../components/userDetailsForm/userDetailsForm";
@@ -9,15 +9,24 @@ import { useUser } from "../../contexts/user";
 
 const AccountPage = () => {
   const { user } = useUser();
-  const [fullName, setFullName] = useState(user?.fullName || "");
-  const [email, setEmail] = useState(user?.email || "");
-  const [phoneNumber, setPhoneNumber] = useState(user?.phoneNumber || "");
-  const [location, setLocation] = useState(user?.location || "");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [location, setLocation] = useState("");
   const [errors, setErrors] = useState({});
   const [updateError, setUpdateError] = useState("");
   const [isChanged, setIsChanged] = useState(false);
 
   const { setDocument } = useFirestore();
+
+  useEffect(() => {
+    if (user) {
+      setFullName(user.fullName || "");
+      setEmail(user.email || "");
+      setPhoneNumber(user.phoneNumber || "");
+      setLocation(user.location || "");
+    }
+  }, [user]);
 
   const handleInputChange = (setter) => (e) => {
     const value = typeof e === "string" ? e : e.target.value;
@@ -45,20 +54,20 @@ const AccountPage = () => {
   };
 
   return (
-    <Page headerTools={<div>Personal Details</div>}>
+    <Page>
       <div className="account-page">
+        <h1>Your Account</h1>
+        <h2>{user?.email}</h2>
         <form onSubmit={handleSubmit}>
           <UserDetailsForm
             fullName={fullName}
             setFullName={handleInputChange(setFullName)}
-            email={email}
             setEmail={handleInputChange(setEmail)}
             phoneNumber={phoneNumber}
             setPhoneNumber={handleInputChange(setPhoneNumber)}
             location={location}
             setLocation={handleInputChange(setLocation)}
             errors={errors}
-            setErrors={setErrors}
           />
           {updateError && <span className="error">{updateError}</span>}
           <button type="submit" className="submit-button" disabled={!isChanged}>

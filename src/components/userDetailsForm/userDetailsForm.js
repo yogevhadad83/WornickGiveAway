@@ -1,11 +1,10 @@
 import React from "react";
 import "./userDetailsForm.css";
 
-export const validate = (fullName, location, email, phoneNumber, setErrors) => {
+export const validate = (fullName, location, phoneNumber, setErrors) => {
   const newErrors = {};
   if (!fullName) newErrors.fullName = "Full name is required";
   if (!location) newErrors.location = "Location is required";
-  if (!email) newErrors.email = "Email is required";
   if (!phoneNumber) newErrors.phoneNumber = "Phone number is required";
   setErrors(newErrors);
   return Object.keys(newErrors).length === 0;
@@ -14,8 +13,6 @@ export const validate = (fullName, location, email, phoneNumber, setErrors) => {
 const UserDetailsForm = ({
   fullName,
   setFullName,
-  email,
-  setEmail,
   phoneNumber,
   setPhoneNumber,
   location,
@@ -41,16 +38,6 @@ const UserDetailsForm = ({
           onChange={(e) => setLocation(e.target.value)}
         />
         {errors.location && <span className="error">{errors.location}</span>}
-      </div>
-      <div className="form-group">
-        <label>Email</label>
-        <input
-          disabled={!setEmail}
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        {errors.email && <span className="error">{errors.email}</span>}
       </div>
       <div className="form-group">
         <label>Phone Number</label>

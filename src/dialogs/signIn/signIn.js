@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Dialog from "../../components/dialog/diaog";
+import Dialog from "../../components/dialog/dialog";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import "./signIn.css";
 import { auth } from "../../firebaseConfig";

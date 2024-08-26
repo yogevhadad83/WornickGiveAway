@@ -5,6 +5,7 @@
   align-items: center;
   height: calc(100vh - 60px); /* Adjust height based on header height */
   padding: 20px;
+  flex-direction: column;
 }
 
 .account-page form {
@@ -32,8 +33,26 @@
   cursor: not-allowed;
 }
 
+.account-page form {
+  margin-top: 12px;
+}
+
 /* Error message styles */
 .account-page .error {
   color: red;
   margin-top: 0.5rem;
+}
+
+/* Title and subtitle styles */
+.account-page h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.account-page h2 {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #555;
 }

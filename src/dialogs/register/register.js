@@ -7,7 +7,7 @@ import UserDetailsForm, {
 import "./register.css";
 import { useFirestore } from "../../contexts/firestore";
 import { auth } from "../../firebaseConfig";
-import Dialog from "../../components/dialog/diaog";
+import Dialog from "../../components/dialog/dialog";
 
 const RegisterDialog = ({ onClose, onOpenSignIn }) => {
   const [fullName, setFullName] = useState("");
@@ -23,7 +23,28 @@ const RegisterDialog = ({ onClose, onOpenSignIn }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const isValid = validate(fullName, location, email, phoneNumber, setErrors);
+    const emailError = email ? "" : "Email is required";
+    const passwordError = password ? "" : "Password is required";
+    const confirmPasswordError =
+      confirmPassword === password ? "" : "Passwords do not match";
+
+    const newErrors = {
+      ...errors,
+      email: emailError,
+      password: passwordError,
+      confirmPassword: confirmPasswordError,
+    };
+
+    setErrors(newErrors);
+
+    const isValid =
+      validate(fullName, location, phoneNumber, (userDetailsErrors) => {
+        setErrors((prevErrors) => ({ ...prevErrors, ...userDetailsErrors }));
+      }) &&
+      !emailError &&
+      !passwordError &&
+      !confirmPasswordError;
+
     if (isValid) {
       try {
         const fbUser = await createUserWithEmailAndPassword(
@@ -33,6 +54,7 @@ const RegisterDialog = ({ onClose, onOpenSignIn }) => {
         );
 
         await setDocument("users", fbUser.user.uid, {
+          email,
           fullName,
           location,
           phoneNumber,
@@ -49,17 +71,23 @@ const RegisterDialog = ({ onClose, onOpenSignIn }) => {
   return (
     <Dialog title="Register" onClose={onClose} className="register-dialog">
       <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Email</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          {errors.email && <span className="error">{errors.email}</span>}
+        </div>
         <UserDetailsForm
           fullName={fullName}
           setFullName={setFullName}
-          email={email}
-          setEmail={setEmail}
           phoneNumber={phoneNumber}
           setPhoneNumber={setPhoneNumber}
           location={location}
           setLocation={setLocation}
           errors={errors}
-          setErrors={setErrors}
         />
         <div className="form-group">
           <label>Password</label>

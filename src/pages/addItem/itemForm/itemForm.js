@@ -24,24 +24,6 @@ const ItemForm = ({ handleInputChange, handleImageChange }) => {
         placeholder="Amount"
         onChange={handleInputChange}
       />
-      <input
-        type="text"
-        name="location"
-        placeholder="Location"
-        onChange={handleInputChange}
-      />
-      <input
-        type="text"
-        name="contactName"
-        placeholder="Contact Name"
-        onChange={handleInputChange}
-      />
-      <input
-        type="tel"
-        name="phoneNumber"
-        placeholder="Phone Number"
-        onChange={handleInputChange}
-      />
       <textarea
         name="notes"
         placeholder="Notes"

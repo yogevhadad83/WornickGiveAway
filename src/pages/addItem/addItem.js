@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import ItemForm from "./itemForm/itemForm";
 import ItemPreview from "./itemPreview/itemPreview";
 import "./addItem.css";
-import Header from "../../components/header/header";
+import Page from "../../components/page/page";
 import { useUser } from "../../contexts/user";
 
 const AddItem = () => {
@@ -14,9 +14,9 @@ const AddItem = () => {
     title: "",
     condition: "",
     amount: "",
-    location: "",
-    contactName: "",
-    phoneNumber: "",
+    location: user?.location,
+    contactName: user?.fullName,
+    phoneNumber: user?.phoneNumber,
     notes: "",
   });
 
@@ -47,8 +47,7 @@ const AddItem = () => {
   };
 
   return (
-    <>
-      <Header user={user} />
+    <Page closable>
       <div className="add-item-page">
         <ItemForm
           handleInputChange={handleInputChange}
@@ -63,7 +62,7 @@ const AddItem = () => {
           handleDrop={handleDrop}
         />
       </div>
-    </>
+    </Page>
   );
 };
 

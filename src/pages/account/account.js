@@ -36,7 +36,7 @@ const AccountPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const isValid = validate(fullName, location, email, phoneNumber, setErrors);
+    const isValid = validate(fullName, location, phoneNumber, setErrors);
     if (isValid) {
       try {
         await setDocument("users", user.uid, {
@@ -54,7 +54,7 @@ const AccountPage = () => {
   };
 
   return (
-    <Page>
+    <Page closable>
       <div className="account-page">
         <h1>Your Account</h1>
         <h2>{user?.email}</h2>

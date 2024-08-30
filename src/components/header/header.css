@@ -21,3 +21,11 @@
   gap: 10px; /* Adjust the gap between buttons as needed */
   margin-left: auto; /* Add this to align buttons to the right */
 }
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  margin-right: 12px;
+}

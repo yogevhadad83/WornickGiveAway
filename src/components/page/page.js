@@ -2,10 +2,10 @@ import React from "react";
 import "./page.css"; // Import the CSS file
 import Header from "../header/header";
 
-const Page = ({ headerTools, children }) => {
+const Page = ({ closable, headerTools, children }) => {
   return (
     <div className="page-container">
-      <Header>{headerTools}</Header>
+      <Header closable={closable}>{headerTools}</Header>
       <main className="page-body">{children}</main>
     </div>
   );

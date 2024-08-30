@@ -53,6 +53,7 @@ const RegisterDialog = ({ onClose, onOpenSignIn }) => {
           password
         );
 
+        console.log("set document");
         await setDocument("users", fbUser.user.uid, {
           email,
           fullName,

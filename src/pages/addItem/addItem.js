@@ -1,4 +1,3 @@
-// ListItemPage.js
 import React, { useState } from "react";
 import ItemForm from "./itemForm/itemForm";
 import ItemPreview from "./itemPreview/itemPreview";
@@ -9,7 +8,7 @@ import { useUser } from "../../contexts/user";
 const AddItem = () => {
   const { user } = useUser();
 
-  const [image, setImage] = useState(null);
+  const [images, setImages] = useState([]);
   const [formInputs, setFormInputs] = useState({
     title: "",
     condition: "",
@@ -27,23 +26,12 @@ const AddItem = () => {
     });
   };
 
-  const handleImageChange = (e) => {
-    let file = e.target.files[0];
-    setImage(URL.createObjectURL(file));
+  const handleImageChange = (images) => {
+    setImages(images);
   };
 
-  const handleRemoveImage = () => {
-    setImage(null);
-  };
-
-  const handleDragOver = (e) => {
-    e.preventDefault();
-  };
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    let file = e.dataTransfer.files[0];
-    setImage(URL.createObjectURL(file));
+  const handleSubmit = (data) => {
+    console.log(data);
   };
 
   return (
@@ -52,15 +40,9 @@ const AddItem = () => {
         <ItemForm
           handleInputChange={handleInputChange}
           handleImageChange={handleImageChange}
+          handleSubmit={handleSubmit}
         />
-        <ItemPreview
-          image={image}
-          formInputs={formInputs}
-          handleRemoveImage={handleRemoveImage}
-          handleImageChange={handleImageChange}
-          handleDragOver={handleDragOver}
-          handleDrop={handleDrop}
-        />
+        <ItemPreview images={images} formInputs={formInputs} />
       </div>
     </Page>
   );

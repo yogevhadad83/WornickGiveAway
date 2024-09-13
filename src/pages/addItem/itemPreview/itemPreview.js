@@ -1,53 +1,39 @@
 import React, { useState } from "react";
 import "./itemPreview.css";
 
-const ItemPreview = ({
-  image,
-  formInputs,
-  handleImageChange,
-  handleDragOver,
-  handleDrop,
-}) => {
-  const [isDragging, setIsDragging] = useState(false);
-  const handleDragEnter = (e) => {
-    e.preventDefault();
-    setIsDragging(true);
+const ItemPreview = ({ images, formInputs }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handlePrevClick = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
+    );
   };
-  const handleDragLeave = (e) => {
-    e.preventDefault();
-    setIsDragging(false);
+
+  const handleNextClick = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+    );
   };
 
   return (
     <div className="item-preview">
-      <div
-        className={`image-container ${isDragging ? "dragging" : ""}`}
-        onDragEnter={handleDragEnter}
-        onDragLeave={handleDragLeave}
-        onDragOver={handleDragOver}
-        onDrop={(e) => {
-          handleDrop(e);
-          setIsDragging(false);
-        }}
-      >
-        {image ? (
+      <div className="image-container">
+        {images.length > 0 && (
           <>
-            <img src={image} alt="Dropped" />
+            <button className="nav-button" onClick={handlePrevClick}>
+              ◀
+            </button>
+            <img
+              src={images[currentIndex].url}
+              alt={images[currentIndex].name}
+              className="preview-image"
+            />
+            <button className="nav-button" onClick={handleNextClick}>
+              ▶
+            </button>
           </>
-        ) : (
-          <p>
-            Drag an image here or{" "}
-            <label htmlFor="file-upload" className="click-to-upload">
-              click to upload
-            </label>
-          </p>
         )}
-        <input
-          id="file-upload"
-          type="file"
-          onChange={handleImageChange}
-          style={{ display: "none" }}
-        />
       </div>
       <div className="item-details">
         {Object.entries(formInputs).map(([key, value]) => (

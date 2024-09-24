@@ -4,10 +4,12 @@ import ItemPreview from "./itemPreview/itemPreview";
 import "./addItem.css";
 import Page from "../../components/page/page";
 import { useUser } from "../../contexts/user";
+import { useFirestore } from "../../contexts/firestore";
+import { v4 as uuidv4 } from "uuid";
 
 const AddItem = () => {
   const { user } = useUser();
-
+  const { setDocument } = useFirestore();
   const [images, setImages] = useState([]);
   const [formInputs, setFormInputs] = useState({
     title: "",
@@ -31,7 +33,9 @@ const AddItem = () => {
   };
 
   const handleSubmit = (data) => {
-    console.log(data);
+    console.log("handleSubmit", data);
+
+    setDocument("items", uuidv4(), data);
   };
 
   return (

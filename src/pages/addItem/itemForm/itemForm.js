@@ -8,17 +8,15 @@ import {
 import "./itemForm.css";
 
 const ItemForm = ({ handleInputChange, handleImageChange, handleSubmit }) => {
-  const onSubmit = (event) => {
-    event.preventDefault();
-    handleSubmit();
-  };
+  const [formData, setFormData] = useState({
+    title: "",
+    condition: "",
+    amount: "",
+    notes: "",
+    images: [],
+  });
 
   const [images, setImages] = useState([]);
-
-  const addImage = (e) => {
-    e.preventDefault();
-    document.getElementById("file-upload").click();
-  };
 
   const handleAddImage = (e) => {
     const file = e.target.files[0];
@@ -58,7 +56,17 @@ const ItemForm = ({ handleInputChange, handleImageChange, handleSubmit }) => {
 
   useEffect(() => {
     handleImageChange(images);
+    setFormData((prevData) => ({
+      ...prevData,
+      images: images,
+    }));
   }, [handleImageChange, images]);
+
+  const onSubmit = (event) => {
+    console.log("onSubmit");
+    event.preventDefault();
+    handleSubmit(formData);
+  };
 
   return (
     <form className="item-form" onSubmit={onSubmit}>
@@ -71,7 +79,9 @@ const ItemForm = ({ handleInputChange, handleImageChange, handleSubmit }) => {
         ))}
       </div>
       <div className="add-image-container">
-        <button onClick={addImage}>Add Image</button>
+        <button onClick={(e) => document.getElementById("file-upload").click()}>
+          Add Image
+        </button>
       </div>
       <input
         id="file-upload"

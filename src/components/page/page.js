@@ -1,5 +1,5 @@
 import React from "react";
-import "./page.css"; // Import the CSS file
+import "./page.css";
 import Header from "../header/header";
 
 const Page = ({ closable, headerTools, children }) => {

@@ -16,6 +16,11 @@ const ItemPreview = ({ images, formInputs }) => {
     );
   };
 
+  // Filter out the "images" key so it doesn't render as text.
+  const filteredFormInputs = Object.entries(formInputs).filter(
+    ([key]) => key !== "images"
+  );
+
   return (
     <div className="item-preview">
       <div className="image-container">
@@ -36,7 +41,7 @@ const ItemPreview = ({ images, formInputs }) => {
         )}
       </div>
       <div className="item-details">
-        {Object.entries(formInputs).map(([key, value]) => (
+        {filteredFormInputs.map(([key, value]) => (
           <p key={key}>
             <strong>{key.charAt(0).toUpperCase() + key.slice(1)}:</strong>{" "}
             {value}

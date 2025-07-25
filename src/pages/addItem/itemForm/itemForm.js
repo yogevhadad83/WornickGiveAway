@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   getStorage,
   ref,
@@ -7,16 +7,8 @@ import {
 } from "firebase/storage";
 import "./itemForm.css";
 
-const ItemForm = ({ handleInputChange, handleImageChange, handleSubmit }) => {
-  const [formData, setFormData] = useState({
-    title: "",
-    condition: "",
-    amount: "",
-    notes: "",
-    images: [],
-  });
-
-  const [images, setImages] = useState([]);
+const ItemForm = ({ formInputs, handleInputChange, handleImageChange, handleSubmit }) => {
+  const [localImages, setLocalImages] = useState([]);
 
   const handleAddImage = (e) => {
     const file = e.target.files[0];
@@ -31,17 +23,15 @@ const ItemForm = ({ handleInputChange, handleImageChange, handleSubmit }) => {
           const progress = Math.round(
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
           );
-          console.log(progress);
+          console.log("Upload progress:", progress);
         },
         (error) => {
-          console.log(error);
+          console.error("Upload error:", error);
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setImages((prevImages) => [
-              ...prevImages,
-              { name: file.name, url: downloadURL },
-            ]);
+            const newImage = { name: file.name, url: downloadURL };
+            setLocalImages((prevImages) => [...prevImages, newImage]);
           });
         }
       );
@@ -49,37 +39,34 @@ const ItemForm = ({ handleInputChange, handleImageChange, handleSubmit }) => {
   };
 
   const handleRemoveImage = (name) => {
-    setImages((prevImages) =>
+    setLocalImages((prevImages) =>
       prevImages.filter((image) => image.name !== name)
     );
   };
 
+  // Update the parent's images state whenever localImages changes
   useEffect(() => {
-    handleImageChange(images);
-    setFormData((prevData) => ({
-      ...prevData,
-      images: images,
-    }));
-  }, [handleImageChange, images]);
+    handleImageChange(localImages);
+  }, [localImages, handleImageChange]);
 
   const onSubmit = (event) => {
-    console.log("onSubmit");
     event.preventDefault();
-    handleSubmit(formData);
+    // Use the parent’s state which now includes the text inputs and images.
+    handleSubmit(formInputs);
   };
 
   return (
     <form className="item-form" onSubmit={onSubmit}>
       <div className="image-info">
-        {images.map((image) => (
+        {localImages.map((image) => (
           <div key={image.name} className="image-name">
             {image.name}{" "}
-            <button onClick={() => handleRemoveImage(image.name)}>x</button>
+            <button type="button" onClick={() => handleRemoveImage(image.name)}>x</button>
           </div>
         ))}
       </div>
       <div className="add-image-container">
-        <button onClick={(e) => document.getElementById("file-upload").click()}>
+        <button type="button" onClick={() => document.getElementById("file-upload").click()}>
           Add Image
         </button>
       </div>
@@ -93,9 +80,10 @@ const ItemForm = ({ handleInputChange, handleImageChange, handleSubmit }) => {
         type="text"
         name="title"
         placeholder="Title"
+        value={formInputs.title}
         onChange={handleInputChange}
       />
-      <select name="condition" onChange={handleInputChange}>
+      <select name="condition" value={formInputs.condition} onChange={handleInputChange}>
         <option value="">Condition</option>
         <option value="new">New</option>
         <option value="good">Good</option>
@@ -106,11 +94,13 @@ const ItemForm = ({ handleInputChange, handleImageChange, handleSubmit }) => {
         type="number"
         name="amount"
         placeholder="Amount"
+        value={formInputs.amount}
         onChange={handleInputChange}
       />
       <textarea
         name="notes"
         placeholder="Notes"
+        value={formInputs.notes}
         onChange={handleInputChange}
       ></textarea>
       <input type="submit" value="Submit" />

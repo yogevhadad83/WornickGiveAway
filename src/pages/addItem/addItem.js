@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import ItemForm from "./itemForm/itemForm";
 import ItemPreview from "./itemPreview/itemPreview";
 import "./addItem.css";
@@ -10,31 +10,30 @@ import { v4 as uuidv4 } from "uuid";
 const AddItem = () => {
   const { user } = useUser();
   const { setDocument } = useFirestore();
-  const [images, setImages] = useState([]);
   const [formInputs, setFormInputs] = useState({
     title: "",
     condition: "",
     amount: "",
-    location: user?.location,
-    contactName: user?.fullName,
-    phoneNumber: user?.phoneNumber,
+    location: user?.location || "",
+    contactName: user?.fullName || "",
+    phoneNumber: user?.phoneNumber || "",
     notes: "",
+    images: []
   });
 
   const handleInputChange = (e) => {
-    setFormInputs({
-      ...formInputs,
+    setFormInputs((prevState) => ({
+      ...prevState,
       [e.target.name]: e.target.value,
-    });
+    }));
   };
 
-  const handleImageChange = (images) => {
-    setImages(images);
-  };
+  const handleImageChange = useCallback((images) => {
+    setFormInputs((prev) => ({ ...prev, images }));
+  }, []);
 
   const handleSubmit = (data) => {
-    console.log("handleSubmit", data);
-
+    console.log("Submitting data:", data);
     setDocument("items", uuidv4(), data);
   };
 
@@ -42,11 +41,12 @@ const AddItem = () => {
     <Page closable>
       <div className="add-item-page">
         <ItemForm
+          formInputs={formInputs}
           handleInputChange={handleInputChange}
           handleImageChange={handleImageChange}
           handleSubmit={handleSubmit}
         />
-        <ItemPreview images={images} formInputs={formInputs} />
+        <ItemPreview images={formInputs.images} formInputs={formInputs} />
       </div>
     </Page>
   );
